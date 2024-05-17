@@ -1,0 +1,23 @@
+*{
+    color: white;
+    background-color:#1E1E1E;
+}
+
+Body {
+    background-color:#1E1E1E;
+}
+
+.mt-5{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0.875rem;
+}
+
+.botoes{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-primary {
+    margin-top: 0.875rem;
+}

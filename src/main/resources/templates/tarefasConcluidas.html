@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tarefas Concluídas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/tarefasConcluidas.css">
+
+</head>
+<body>
+<div class="container">
+    <h1 class="titulo">Tarefas Concluídas</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Conclusão</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="task : ${completedTasks}">
+            <td th:text="${task.title}">Exemplo</td>
+            <td th:text="${task.description}">Exemplo</td>
+            <!-- Exibir a data de conclusão formatada -->
+            <td th:text="${task.formattedCompletionTime}"></td>
+            <td>
+                <a th:href="@{/tasks/completed/delete/{id}(id=${task.id})}" class="btn btn-danger btn-sm">Remover</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <a href="/tasks/" class="btn btn-primary">Voltar para Tarefas</a>
+</div>
+</body>
+</html>

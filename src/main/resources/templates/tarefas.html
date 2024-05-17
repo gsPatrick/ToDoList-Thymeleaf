@@ -1,0 +1,68 @@
+    <!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>To-Do List</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/tarefas.css">
+    </head>
+    <body>
+    <div class="container">
+        <h1 class="mt-5">Adicionar Tarefas</h1>
+
+        <!-- Formulário para Adicionar/Editar/Remover todas Tarefas -->
+        <div class="card mt-3">
+            <div class="card-body">
+                <form th:action="${newTask.id == null} ? @{/tasks/add} : @{/tasks/update}" th:object="${newTask}" method="post">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="form-group">
+                        <label for="title">Nome</label>
+                        <input type="text" id="title" th:field="*{title}" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descrição</label>
+                        <input id="description" th:field="*{description}" class="form-control" rows="3"></input>
+                    </div>
+
+                    <div class="botoes">
+
+                        <button type="submit" class="btn btn-primary" th:text="${newTask.id == null} ? 'Adicionar Tarefa' : 'Atualizar'"></button>
+                        <a th:if="${newTask.id == null}" th:href="@{/tasks/deleteAll}" class="btn btn-danger mt-3">Remover Todas as Tarefas</a>
+                        <a th:if="${newTask.id != null}" th:href="@{/tasks/}" class="btn btn-secondary">Cancelar</a>
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Lista de Tarefas -->
+        <h2 class="mt-5">Lista de Tarefas</h2>
+        <table class="table table-striped mt-3">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task : ${tasks}" th:unless="${task.completed}">
+                <td th:text="${task.title}">Título</td>
+                <td th:text="${task.description}">Descrição</td>
+                <td>
+                    <a th:href="@{/tasks/edit/{id}(id=${task.id})}" class="btn btn-warning btn-sm">Editar</a>
+                    <a th:href="@{/tasks/delete/{id}(id=${task.id})}" class="btn btn-danger btn-sm">Remover</a>
+                    <form th:action="@{/tasks/complete/{id}(id=${task.id})}" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-success btn-sm">Marcar como Concluída</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="/tasks/completed" class="btn btn-primary">Ver Tarefas Concluídas</a>
+
+    </div>
+    </body>
+    </html>
