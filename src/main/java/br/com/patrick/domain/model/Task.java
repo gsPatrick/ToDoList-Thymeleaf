@@ -16,7 +16,6 @@ public class Task {
     private Long id;
     @NotBlank
     private String title;
-    @NotBlank
     private String description;
     private boolean completed;
 
